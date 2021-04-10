@@ -6,16 +6,21 @@
 				<div class="row">
 
 					<div class="col-xs-12 col-md-10 offset-md-1">
-						<img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-						<h4>Eric Simons</h4>
+						<img :src="usermsg.image" class="user-img" />
+						<h4>{{usermsg.username}}</h4>
 						<p>
-							Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+							{{usermsg.bio}}
 						</p>
-						<button class="btn btn-sm btn-outline-secondary action-btn">
-							<i class="ion-plus-round"></i>
+						<nuxt-link :to="{
+								name: 'settings',
+								params: {
+									username: usermsg.username
+								}
+							}" class="btn btn-sm btn-outline-secondary action-btn">
+							<i class="ion-gear-a"></i>
 							&nbsp;
-							Follow Eric Simons 
-						</button>
+							Edit Profile Settings 
+						</nuxt-link>
 					</div>
 
 				</div>
@@ -29,52 +34,69 @@
 					<div class="articles-toggle">
 						<ul class="nav nav-pills outline-active">
 							<li class="nav-item">
-								<a class="nav-link active" href="">My Articles</a>
+								<nuxt-link class="nav-link"
+									:class="{
+										active: tab == 'my_list'
+									}" 
+								 :to="{
+									name: 'profile',
+									query: {
+										tab: 'my_list'
+									}
+								}">My Articles</nuxt-link>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="">Favorited Articles</a>
+							<li class="nav-item" >
+								<nuxt-link class="nav-link"
+									:class="{
+										active: tab == 'favo_list'
+									}" 
+									:to="{
+									name: 'profile',
+									query: {
+										tab: 'favo_list'
+									}
+								}">Favorited Articles</nuxt-link>
 							</li>
 						</ul>
 					</div>
 
-					<div class="article-preview">
+					<div class="article-preview" v-for="article in articles" :key="article.slug">
 						<div class="article-meta">
-							<a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+							<nuxt-link :to="{
+								name: 'profile',
+								params: {
+									username: article.author.username
+								}
+							}">
+								<img :src="article.author.image" />
+							</nuxt-link>
 							<div class="info">
-								<a href="" class="author">Eric Simons</a>
-								<span class="date">January 20th</span>
+								<nuxt-link :to="{
+									name: 'profile',
+									params: {
+										username: article.author.username
+									}
+								}" class="author">{{article.author.username}}</nuxt-link>
+								<span class="date">{{article.createdAt | dataTime('MMMM DD, YYYY')}}</span>
 							</div>
-							<button class="btn btn-outline-primary btn-sm pull-xs-right">
+							<button class="btn btn-outline-primary btn-sm pull-xs-right"
+							:class="{
+								active:article.favorited 
+							}"
+							@click="btnlike(article)" :disabled="article.favoritDiabled">
 								<i class="ion-heart"></i> 29
 							</button>
 						</div>
-						<a href="" class="preview-link">
-							<h1>How to build webapps that scale</h1>
-							<p>This is the description for the post.</p>
+						<nuxt-link :to="{
+							name: 'article',
+							params:{
+								slug: article.slug
+							}
+						}" class="preview-link">
+							<h1>{{article.body}}</h1>
+							<p>{{article.description}}</p>
 							<span>Read more...</span>
-						</a>
-					</div>
-
-					<div class="article-preview">
-						<div class="article-meta">
-							<a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
-							<div class="info">
-								<a href="" class="author">Albert Pai</a>
-								<span class="date">January 20th</span>
-							</div>
-							<button class="btn btn-outline-primary btn-sm pull-xs-right">
-								<i class="ion-heart"></i> 32
-							</button>
-						</div>
-						<a href="" class="preview-link">
-							<h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-							<p>This is the description for the post.</p>
-							<span>Read more...</span>
-							<ul class="tag-list">
-								<li class="tag-default tag-pill tag-outline">Music</li>
-								<li class="tag-default tag-pill tag-outline">Song</li>
-							</ul>
-						</a>
+						</nuxt-link>
 					</div>
 
 
@@ -87,9 +109,53 @@
 </template>
 
 <script>
+import { getUser, getArticle, deletFavorite, addFavorite } from '@/api/api'
 export default {
 	name: "profilePage",
-	middleware: "authenticated"
+	middleware: "authenticated",
+	data() {
+		return {
+		}
+	},
+	watchQuery: ['tab'],
+	async asyncData({query, params}){
+		const limit = 20
+		const { username } = params
+		const tab = query.tab || 'my_list'
+		const page = Number.parseInt(params.page || 1)
+		const [ usetData, articleList] = await Promise.all([
+			getUser(username),
+			getArticle({
+				author: tab == 'my_list' ? username : '',
+				limit: limit,
+				offset: (page-1) * limit,
+				favorited: tab == 'favo_list' ? username : ''
+			})
+		])
+		const { profile } = usetData.data
+		const { articles } = articleList.data
+		articles.forEach(item => item.favoritDiabled == false)
+		return {
+			usermsg: profile,
+			articles,
+			tab
+		}
+	},
+	methods: {
+		async btnlike (article) {
+			article.favoritDiabled = true
+			if(article.favorited){ //取消
+				await deletFavorite(article.slug)
+				article.favorited = false
+				article.favoritesCount += -1
+			}else{
+				await addFavorite(article.slug)
+				article.favorited = true
+				article.favoritesCount += 1
+			}
+			article.favoritDiabled = false
+		}
+	},
 };
 </script>
 <style>

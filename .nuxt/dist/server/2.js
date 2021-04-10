@@ -5,8 +5,8 @@ exports.modules = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return register; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return register; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getFeedArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTags; });
@@ -14,6 +14,8 @@ exports.modules = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deletFavorite; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getArticleDetail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getArticleComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return updataUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getUser; });
 /* harmony import */ var _plugins_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
  // 登录
 
@@ -86,6 +88,21 @@ const getArticleComments = slug => {
     method: "GET",
     url: `/api/articles/${slug}/comments`
   });
+}; // 提交个人信息
+
+const updataUser = data => {
+  return Object(_plugins_request__WEBPACK_IMPORTED_MODULE_0__[/* request */ "b"])({
+    method: "PUT",
+    url: "/api/user",
+    data: data
+  });
+}; // 获取个人信息
+
+const getUser = username => {
+  return Object(_plugins_request__WEBPACK_IMPORTED_MODULE_0__[/* request */ "b"])({
+    method: "GET",
+    url: `/api/profiles/${username}`
+  });
 };
 
 /***/ }),
@@ -97,8 +114,8 @@ const getArticleComments = slug => {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/home/index.vue?vue&type=template&id=fffc2290&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"home-page"},[_vm._ssrNode("<div class=\"banner\"><div class=\"container\"><h1 class=\"logo-font\">conduit</h1> <p>A place to share your knowledge.</p></div></div> "),_vm._ssrNode("<div class=\"container page\">","</div>",[_vm._ssrNode("<div class=\"row\">","</div>",[_vm._ssrNode("<div class=\"col-md-9\">","</div>",[_vm._ssrNode("<div class=\"feed-toggle\">","</div>",[_vm._ssrNode("<ul class=\"nav nav-pills outline-active\">","</ul>",[(_vm.user)?_vm._ssrNode("<li class=\"nav-item\">","</li>",[_c('nuxt-link',{staticClass:"nav-link",class:{
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/home/index.vue?vue&type=template&id=002dad7f&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"home-page"},[_vm._ssrNode("<div class=\"banner\"><div class=\"container\"><h1 class=\"logo-font\">hello worlds</h1> <p>A place to share your knowledge.</p></div></div> "),_vm._ssrNode("<div class=\"container page\">","</div>",[_vm._ssrNode("<div class=\"row\">","</div>",[_vm._ssrNode("<div class=\"col-md-9\">","</div>",[_vm._ssrNode("<div class=\"feed-toggle\">","</div>",[_vm._ssrNode("<ul class=\"nav nav-pills outline-active\">","</ul>",[(_vm.user)?_vm._ssrNode("<li class=\"nav-item\">","</li>",[_c('nuxt-link',{staticClass:"nav-link",class:{
 									active: _vm.tab === 'your_feed'
 								},attrs:{"to":{
 								name: 'home',
@@ -155,7 +172,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./pages/home/index.vue?vue&type=template&id=fffc2290&
+// CONCATENATED MODULE: ./pages/home/index.vue?vue&type=template&id=002dad7f&
 
 // EXTERNAL MODULE: ./api/api.js
 var api = __webpack_require__(27);

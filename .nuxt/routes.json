@@ -28,7 +28,7 @@
         "_name": "_55ff7b11"
       },
       {
-        "path": "/settings",
+        "path": "/settings/:username",
         "name": "settings",
         "component": "/Users/liuzhuang/lgjy/part-3/module3/realworld-nuxtjs/pages/settings",
         "_name": "_09a0108a"

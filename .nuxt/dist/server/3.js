@@ -5,8 +5,8 @@ exports.modules = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return register; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return register; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getFeedArticle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTags; });
@@ -14,6 +14,8 @@ exports.modules = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deletFavorite; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getArticleDetail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getArticleComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return updataUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getUser; });
 /* harmony import */ var _plugins_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
  // 登录
 
@@ -85,6 +87,21 @@ const getArticleComments = slug => {
   return Object(_plugins_request__WEBPACK_IMPORTED_MODULE_0__[/* request */ "b"])({
     method: "GET",
     url: `/api/articles/${slug}/comments`
+  });
+}; // 提交个人信息
+
+const updataUser = data => {
+  return Object(_plugins_request__WEBPACK_IMPORTED_MODULE_0__[/* request */ "b"])({
+    method: "PUT",
+    url: "/api/user",
+    data: data
+  });
+}; // 获取个人信息
+
+const getUser = username => {
+  return Object(_plugins_request__WEBPACK_IMPORTED_MODULE_0__[/* request */ "b"])({
+    method: "GET",
+    url: `/api/profiles/${username}`
   });
 };
 
@@ -177,9 +194,9 @@ const Cookie =  false ? undefined : undefined;
       try {
         const {
           data
-        } = this.isLogin ? await Object(api["h" /* login */])({
+        } = this.isLogin ? await Object(api["i" /* login */])({
           user: this.user
-        }) : await Object(api["i" /* register */])({
+        }) : await Object(api["j" /* register */])({
           user: this.user
         }); // 调用commit，存储到容器中
 

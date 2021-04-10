@@ -80,3 +80,21 @@ export const getArticleComments = slug => {
 	})
 }
 
+// 提交个人信息
+export const updataUser = data => {
+	return request({
+		method: "PUT",
+		url: "/api/user",
+		data: data
+	})
+}
+
+// 获取个人信息
+export const getUser = username => {
+	return request({
+		method: "GET",
+		url: `/api/profiles/${username}`
+	})
+}
+
+

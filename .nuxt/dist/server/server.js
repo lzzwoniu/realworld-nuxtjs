@@ -1510,17 +1510,17 @@ function shouldScrollToTop(route) {
 
 
 
-const _24523cc2 = () => interopDefault(__webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, 29)));
+const _24523cc2 = () => interopDefault(__webpack_require__.e(/* import() */ 7).then(__webpack_require__.bind(null, 29)));
 
 const _83888712 = () => interopDefault(__webpack_require__.e(/* import() */ 2).then(__webpack_require__.bind(null, 30)));
 
 const _09741ad1 = () => interopDefault(__webpack_require__.e(/* import() */ 3).then(__webpack_require__.bind(null, 31)));
 
-const _55ff7b11 = () => interopDefault(__webpack_require__.e(/* import() */ 6).then(__webpack_require__.bind(null, 32)));
+const _55ff7b11 = () => interopDefault(__webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, 32)));
 
-const _09a0108a = () => interopDefault(__webpack_require__.e(/* import() */ 7).then(__webpack_require__.bind(null, 33)));
+const _09a0108a = () => interopDefault(__webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, 33)));
 
-const _18836305 = () => interopDefault(__webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, 34)));
+const _18836305 = () => interopDefault(__webpack_require__.e(/* import() */ 6).then(__webpack_require__.bind(null, 34)));
 
 const _3cc9be5e = () => interopDefault(__webpack_require__.e(/* import() */ 1).then(__webpack_require__.bind(null, 28)));
 
@@ -1553,7 +1553,7 @@ const routerOptions = {
       component: _55ff7b11,
       name: "profile"
     }, {
-      path: "/settings",
+      path: "/settings/:username",
       component: _09a0108a,
       name: "settings"
     }, {
